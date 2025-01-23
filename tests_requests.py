@@ -41,7 +41,7 @@ def test_register_user_successful():
 def test_register_user_unsuccessful():
     response = requests.post("https://reqres.in/api/register")
     assert response.status_code == 400
-    body = json.load(response.json())
+    body = json.loads(response.text)
     assert body == {"error":"Missing email or username"}
 
 
