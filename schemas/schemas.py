@@ -1,4 +1,4 @@
-post_user = {
+create_user = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "additionalProperties": False,

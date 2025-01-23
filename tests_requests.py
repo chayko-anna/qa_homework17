@@ -1,14 +1,14 @@
+import json
 import requests
 from jsonschema import validate
-import schemas
-from schemas.schemas_users.py import post_user, register_user, update_user, get_user
+from schemas.schemas import create_user, register_user, update_user, get_user
 
 
 def test_create_user():
     response = requests.post("https://reqres.in/api/users", data={"name": "morpheus", "job": "master"})
     assert response.status_code == 201
     body = response.json()
-    validate(body, post_user)
+    validate(body, create_user)
 
 
 def test_get_existing_user_info():
@@ -41,7 +41,8 @@ def test_register_user_successful():
 def test_register_user_unsuccessful():
     response = requests.post("https://reqres.in/api/register")
     assert response.status_code == 400
-    assert response.text == '{"error":"Missing email or username"}'
+    body = json.load(response.json())
+    assert body == {"error":"Missing email or username"}
 
 
 def test_delete_user_successful():
